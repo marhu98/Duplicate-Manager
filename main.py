@@ -3,6 +3,7 @@ from collections import defaultdict
 import os
 import hashlib
 from tqdm import tqdm
+import sys
 
 
 
@@ -18,9 +19,12 @@ def get_hash(f_path, mode='md5'):
 """
 Get repeated names
 """
+"""
+Currently WIP
+"""
 def get_repeated_fast(dir_):
     d = defaultdict(lambda :0)
-    for file in iglob(dir_):
+    for file in iglob(dir_,recursive=True):
         name = file.split("/")[-1]
         d[name]=d[name]+1
     res = []
@@ -34,7 +38,7 @@ Default hash is md5
 """
 def get_reapeated(dir,mode="md5"):
     d = defaultdict(lambda :[0,[]])
-    for file in tqdm(glob(dir_)):
+    for file in tqdm(glob(dir_,recursive=True)):
         #name = file.split("/")[-1]
         h=get_hash(file,mode=mode)
         #print(d[h][0])
@@ -88,16 +92,18 @@ Removes duplicate files, except for the oldest file
 """
 def remove(list_):
     for els in list_:
-        for i in range(1,len(els)):
+        for i in range(0,len(els)-1):
             os.remove(els[i])
 
 """
 Moves duplicate files to a specified folder, except for the oldest file
 """
-def remove(list_,dest):
+def move(list_,dest):
     for els in list_:
-        for i in range(1,len(els)):
+        for i in range(0,len(els)-1):
             name = els[i].split("/")[-1]
             os.rename(els[i],f"{dest}/{name}")
 
-dir_="MEGA/ZZZ/*/*.gif"
+dir_=os.environ["HOME"]+sys.argv[1]+"/**"
+print(dir_)
+print(glob(dir_,recursive=True))
