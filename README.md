@@ -9,3 +9,9 @@ Standart algorithm is md5 but it may be changed with the optional parameter mode
 There to more functions: 
 - remove: Removes duplicates.
 - move: Moves duplicates to a specified folder.
+
+
+## Quick test:
+Quick test may be done calling make from the command line. This checks that similar files actually have the same size. Some sort of sanity check.
+
+## WIP: A lot.
