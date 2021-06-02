@@ -110,6 +110,6 @@ if len(sys.argv)>1:
     dir_=os.environ["HOME"]+"/"+sys.argv[1]+"/**"
 else:
     dir_=os.environ["HOME"]+"/**"
-print(dir_)
-print(glob(dir_,recursive=True))
-print(get_repeated_fast(dir_))
+#print(dir_)
+#print(glob(dir_,recursive=True))
+#print(get_repeated_fast(dir_))
