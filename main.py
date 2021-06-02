@@ -24,12 +24,14 @@ Currently WIP
 """
 def get_repeated_fast(dir_):
     d = defaultdict(lambda :0)
+    nametofile=dict()
     for file in iglob(dir_,recursive=True):
         name = file.split("/")[-1]
         d[name]=d[name]+1
+        nametofile[name]=file
     res = []
     for name,number in filter(lambda k:k[1]>1,d.items()):
-        res.append(sorted(glob(f"MEGA/ZZZ/*/{name}"),key=os.path.getmtime))
+        res.append(sorted(glob(nametofile(name)),key=os.path.getmtime))
     return res
 
 """
@@ -104,6 +106,10 @@ def move(list_,dest):
             name = els[i].split("/")[-1]
             os.rename(els[i],f"{dest}/{name}")
 
-dir_=os.environ["HOME"]+sys.argv[1]+"/**"
+if len(sys.argv)>1:
+    dir_=os.environ["HOME"]+"/"+sys.argv[1]+"/**"
+else:
+    dir_=os.environ["HOME"]+"/**"
 print(dir_)
 print(glob(dir_,recursive=True))
+print(get_repeated_fast(dir_))
